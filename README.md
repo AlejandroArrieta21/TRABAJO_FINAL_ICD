@@ -253,7 +253,7 @@ Los resultados obtenidos por la red neuronal fueron inferiores a los modelos de 
 | Métrica | MLP Regressor | Ridge / XGBoost (Promedio) |
 |------|-------------|-----------------------------|
 | Error Cuadrático Medio (MSE) | 0.279298 | ~0.074 |
-| Coeficiente de Determinación (R^2) | -2.73 | Positivo / Estacional |
+| Coeficiente de Determinación (R^2) | -2.73 | 0.0310  |
 
 ### Puntos más importantes del análisis del MLP
 
