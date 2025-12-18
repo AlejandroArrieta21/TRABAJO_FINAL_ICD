@@ -141,7 +141,7 @@ Resultados del **Error Cuadrático Medio (MSE)** obtenidos en el conjunto de pru
 El análisis de importancia relativa permite identificar qué factores tienen mayor peso en la formación del tipo de cambio diario:
 
 - **Dominancia de la Inercia:**  
-  El factor más determinante es el retorno del día anterior (\(ret\_USD\_lag1\)), con una importancia cercana a **0.20**. Esto confirma que el mercado cambiario peruano tiene una persistencia interna significativa.
+  El factor más determinante es el retorno del día anterior (ret\_USD\_lag1), con una importancia cercana a **0.20**. Esto confirma que el mercado cambiario peruano tiene una persistencia interna significativa.
 
 - **Riesgo Global:**  
   Los rezagos del índice de volatilidad (**VIX\_lag7** y **VIX\_lag1**) muestran una relevancia secundaria, indicando que el riesgo internacional influye gradualmente en el sol peruano.
@@ -253,7 +253,7 @@ Los resultados obtenidos por la red neuronal fueron inferiores a los modelos de 
 | Métrica | MLP Regressor | Ridge / XGBoost (Promedio) |
 |------|-------------|-----------------------------|
 | Error Cuadrático Medio (MSE) | 0.279298 | ~0.074 |
-| Coeficiente de Determinación (\R^2\) | -2.73 | Positivo / Estacional |
+| Coeficiente de Determinación (R^2) | -2.73 | Positivo / Estacional |
 
 ### Puntos más importantes del análisis del MLP
 
