@@ -1,6 +1,7 @@
 # Análisis del Sentimiento en Criptomonedas y su Relación con el Tipo de Cambio (USD/PEN)
 
-**Curso:** Introducción a Machine Learning con Python  
+**Curso:** Introducción a Machine Learning con Python
+**Profesor:** Luis José Zapata Bobadilla  
 **Grupo:** N.° 8  
 
 **Integrantes:**
