@@ -74,9 +74,7 @@ Se implementó un modelo dinámico para evaluar si el retorno del tipo de cambio
 
 ### Especificación del Modelo
 
-\[
-ret\_USD_t = \alpha + \beta_1 \cdot ret\_USD_{t-1} + \beta_2 \cdot FGI_{t-1} + \epsilon_t
-\]
+ret_USD_t = α + β1 · ret_USD_{t-1} + β2 · FGI_{t-1} + ε_t
 
 ### 4.1 Resultados del Modelado
 
@@ -252,10 +250,10 @@ Se implementó un **Perceptrón Multicapa (MLPRegressor)** para evaluar si una a
 
 Los resultados obtenidos por la red neuronal fueron inferiores a los modelos de ensamble y regresión lineal penalizada:
 
-| Métrica | MLPRegressor | Ridge / XGBoost (Promedio) |
+| Métrica | MLP Regressor | Ridge / XGBoost (Promedio) |
 |------|-------------|-----------------------------|
 | Error Cuadrático Medio (MSE) | 0.279298 | ~0.074 |
-| Coeficiente de Determinación (\(R^2\)) | -2.73 | Positivo / Estacional |
+| Coeficiente de Determinación (\R^2\) | -2.73 | Positivo / Estacional |
 
 ### Puntos más importantes del análisis del MLP
 
