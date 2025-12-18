@@ -5,7 +5,7 @@
 
 **Grupo:** N.° 8  
 **Integrantes:**
-- Luis Ángel Alejandro Arrieta Feria  
+- Luis Angel Alejandro Arrieta Feria  
 - Mirelli Thais Jimenez Pulache  
 - Néstor Julio Rivero Escobar  
 
