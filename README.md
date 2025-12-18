@@ -264,7 +264,7 @@ Los resultados obtenidos por la red neuronal fueron inferiores a los modelos de 
   Las redes neuronales requieren un volumen de datos significativamente mayor y una estructura temporal más explícita (por ejemplo, redes recurrentes o Transformers) para capturar dinámicas financieras que los modelos de ensamble como XGBoost manejan mejor con muestras moderadas.
 
 - **Superioridad de Modelos Tradicionales:**  
-  La estabilidad de los modelos **Ridge** y **XGBoost** sugiere que la estructura del problema —retornos con inercia y señales altamente ruidosas— se ajusta mejor a modelos que penalizan la complejidad o utilizan árboles de decisión.
+  La estabilidad de los modelos **Ridge** y **XGBoost** sugiere que la estructura del problema, retornos con inercia y señales altamente ruidosas, se ajusta mejor a modelos que penalizan la complejidad o utilizan árboles de decisión.
 
 En conclusión, aunque el MLP permite modelar interacciones teóricas muy complejas, en el contexto del tipo de cambio peruano los modelos tradicionales resultan ser más precisos y confiables para la toma de decisiones económicas.
 
