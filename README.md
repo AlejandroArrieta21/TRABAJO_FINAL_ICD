@@ -1,87 +1,93 @@
 # Análisis del Sentimiento en Criptomonedas y su Relación con el Tipo de Cambio (USD/PEN)
 
+**Curso:** Introducción a Machine Learning con Python  
+**Grupo:** N.° 8  
+
+**Integrantes:**
+- Luis Ángel Alejandro Arrieta Feria  
+- Mirelli Thais Jimenez Pulache  
+- Néstor Julio Rivero Escobar  
+
+---
+
 ## 1. Introducción
 
-El objetivo central de este proyecto es evaluar si existe una correlación significativa entre el sentimiento en el mercado de criptomonedas, medido por el **Fear & Greed Index (FGI)**, y el tipo de cambio del sol peruano (**PEN/USD**).
+El objetivo central de este proyecto es evaluar si existe una correlación significativa entre el sentimiento en el mercado de criptomonedas, medido por el **Fear & Greed Index (FGI)**, y el tipo de cambio del sol peruano (**USD/PEN**).
 
-Esta investigación surge de la preocupación por la vulnerabilidad de las economías emergentes ante shocks externos de carácter financiero y de expectativas. La identificación de fuentes adicionales de volatilidad, como el sentimiento en mercados digitales globales, permite a los bancos centrales y analistas financieros mejorar su capacidad para anticipar episodios de depreciación o apreciación cambiaria.
-
-El estudio integra estadística descriptiva, modelos de series de tiempo y técnicas de *machine learning* desarrolladas a lo largo de cuatro etapas progresivas.
+La investigación busca determinar si factores financieros *no tradicionales* y expectativas globales en mercados digitales pueden servir como indicadores de volatilidad para analistas y hacedores de política monetaria.
 
 ---
 
-## 2. Importación y Preparación de Datos
+## TRABAJO 1: Importación, Preparación y Análisis Exploratorio (EDA)
 
-Para el análisis se construyó un dataset consolidado que unifica fuentes del mercado cripto, indicadores financieros globales y series macroeconómicas asociadas al tipo de cambio peruano.
+## 2. Preparación del Dataset
 
-### Proceso de Curaduría
+Se construyó un dataset consolidado que integra series de tiempo de diversas fuentes, asegurando la homogeneidad temporal y la corrección de inconsistencias originales. El dataset final abarca un rango de fechas desde el **01 de junio de 2018** hasta el **30 de junio de 2025**.
 
-- **Limpieza:** Manejo de inconsistencias originales y corrección de valores faltantes.  
-- **Homogeneización:** Estandarización de la frecuencia temporal de todas las series.  
-- **Rango Temporal:** El dataset final comprende el periodo desde el **01 de junio de 2018** hasta el **30 de junio de 2025**.
+### Variables seleccionadas para el estudio
 
-### Variables Seleccionadas
-
-| Variable | Descripción |
-|--------|-------------|
-| FGI | Fear & Greed Index (Sentimiento del mercado cripto) |
-| USD/PEN | Tipo de cambio de venta del sol peruano |
-| DXY | Índice del dólar global |
-| VIX | Índice de volatilidad (incertidumbre financiera global) |
-| BTC/USD | Precio del Bitcoin en dólares |
-| Gold | Precio del oro (activo refugio) |
-| T-Bills / Treasury | Tasas de interés de bonos del Tesoro de EE.UU. (13w y 5y) |
+- **FGI (Fear & Greed Index):** Sentimiento del mercado cripto  
+- **USD/PEN (Venta):** Tipo de cambio local  
+- **DXY:** Índice del dólar global  
+- **VIX:** Índice de volatilidad y termómetro del miedo global  
+- **BTC/USD:** Precio del Bitcoin  
+- **Commodities y Tasas:** Precio del oro, T-Bills 13w y Treasury 5y  
 
 ---
 
-## 3. Análisis Exploratorio (EDA)
+## 3. Análisis Exploratorio de Datos (EDA)
 
-El análisis exploratorio permite comprender el comportamiento histórico y la estructura de volatilidad de las variables antes del modelado.
+El análisis descriptivo permite identificar patrones de estabilidad, episodios de volatilidad y posibles comovimientos entre activos.
 
-### Evolución Histórica y Comovimientos
-
-- **Tipo de Cambio:**  
-  Entre 2018 y 2021, el USD/PEN experimentó una marcada depreciación debido a incertidumbre política doméstica y la pandemia de COVID-19, alcanzando máximos cercanos a **S/ 4.10**.
-
-- **Bitcoin vs. Oro:**  
-  Ambos activos muestran una correlación visual positiva desde 2020, respondiendo a la liquidez global, aunque Bitcoin presenta movimientos mucho más erráticos y explosivos.
-
-- **Desconexión Cripto-Cambiaria:**  
-  Se observa una desconexión entre el ciclo especulativo de Bitcoin y el sol peruano; mientras el BTC subió en 2024–2025, el sol se mantuvo estable debido a fundamentos locales y la intervención del BCRP.
-
-### Distribuciones de Riesgo
+### 3.1 Evolución Histórica y Estabilidad
 
 - **USD/PEN:**  
-  Presenta una curva estrecha con un pico pronunciado en cero, indicando baja volatilidad estructural y variaciones diarias típicamente inferiores al **0.5%**.
+  El sol peruano mostró una marcada depreciación entre 2018 y 2021 debido a la incertidumbre política interna y el impacto del COVID-19, alcanzando picos cercanos a **S/ 4.10**. Posteriormente, ingresó en una fase de estabilización gracias a la intervención del Banco Central de Reserva del Perú (BCRP).
+
+- **Bitcoin vs. Oro:**  
+  Ambos activos muestran una correlación visual positiva desde 2020, actuando como reservas de valor ante la liquidez global. Sin embargo, el Bitcoin exhibe movimientos mucho más erráticos y explosivos en comparación con la trayectoria suave del oro.
+
+### 3.2 Distribuciones de Riesgo y Volatilidad
+
+- **USD/PEN:**  
+  Sus retornos diarios presentan una curva estrecha con un pico pronunciado en cero, lo que refleja una baja volatilidad estructural y un mercado cambiario predecible sujeto a un marco institucional sólido.
 
 - **Bitcoin:**  
-  Exhibe una distribución de *colas pesadas* con variaciones frecuentes de entre **±5%** e incluso superiores al **10%** en una sola sesión, reflejando su naturaleza especulativa.
+  Posee una distribución de retornos mucho más ancha con *colas gordas* (*fat tails*). Sus movimientos diarios suelen oscilar entre **±5%**, evidenciando su naturaleza especulativa y la ausencia de una autoridad que estabilice su demanda.
 
-### Dinámica del Sentimiento (FGI)
+### 3.3 Dinámica del Sentimiento (FGI) y Correlaciones
 
-El sentimiento del mercado muestra un comportamiento bimodal. Los inversionistas rara vez se encuentran en un estado neutral (solo 400 días); en cambio, el mercado oscila principalmente entre estados de **Miedo** (más de 1200 días) y **Avaricia** (aprox. 950 días).
+- **Bimodalidad del Sentimiento:**  
+  El FGI no sigue una distribución uniforme; se observan dos picos en los extremos (*Miedo* y *Avaricia*). El mercado pasa más tiempo en estados de *Fear* y *Extreme Fear* (más de 1200 días acumulados) que en estados de neutralidad.
 
-El análisis de dispersión arroja una correlación de Pearson de solo **0.07** entre el FGI y el tipo de cambio.
+- **Validación de Hipótesis:**  
+  La correlación de Pearson entre el FGI y el tipo de cambio USD/PEN es de **0.07**, confirmando la ausencia de una relación lineal significativa entre el sentimiento cripto y la moneda peruana.  
+  Por el contrario, Bitcoin muestra una correlación moderada de **0.52** con el USD/PEN, influenciada principalmente por el periodo de coincidencia alcista de 2020–2021.
 
 ---
 
-## 4. Modelo Dinámico ARX
+## TRABAJO 2: Modelo Dinámico ARX
 
-Se implementó un modelo **Autoregresivo con Variable Exógena (ARX)** para evaluar si el sentimiento global aporta información predictiva adicional a la inercia propia del tipo de cambio.
+## 4. Modelo Autoregresivo con Variable Exógena (ARX)
+
+Se implementó un modelo dinámico para evaluar si el retorno del tipo de cambio (\(ret\_USD\)) puede ser explicado por su propia inercia y por el sentimiento global (FGI) como shock externo.
 
 ### Especificación del Modelo
 
-El modelo se estimó mediante **Mínimos Cuadrados Ordinarios (OLS)** con errores robustos (**HAC**) para corregir la autocorrelación.
+\[
+ret\_USD_t = \alpha + \beta_1 \cdot ret\_USD_{t-1} + \beta_2 \cdot FGI_{t-1} + \epsilon_t
+\]
 
-### Resultados Estadísticos
+### 4.1 Resultados del Modelado
 
-- **Persistencia (Inercia):**  
-  El coeficiente del retorno rezagado (*ret_USD_lag1*) es altamente significativo (**p = 0.002**), confirmando que el mercado cambiario peruano tiene memoria a corto plazo.
+El modelo fue ajustado utilizando **Mínimos Cuadrados Ordinarios (OLS)** con errores robustos (**HAC**) para corregir la autocorrelación.
 
-- **Sentimiento (Exógena):**  
-  El coeficiente del FGI rezagado no resultó significativo (**p = 0.623**), lo que implica que las emociones del mercado cripto no explican las variaciones diarias del sol peruano.
+- **Inercia del Mercado (Memoria):**  
+  El coeficiente de \(ret\_USD_{t-1}\) resultó positivo y altamente significativo (**p = 0.002**). Esto indica que el tipo de cambio peruano presenta persistencia: si el dólar sube hoy, existe una probabilidad estadística de que mantenga esa tendencia al día siguiente.
 
-- **Capacidad Predictiva:**  
-  El modelo ARX mejoró el **Error Cuadrático Medio (MSE)** a **0.092**, comparado con **0.101** del modelo simple, gracias a la inclusión del componente autorregresivo.
+- **Influencia del Sentimiento:**  
+  El coeficiente del \(FGI_{t-1}\) no fue estadísticamente significativo (**p = 0.623**). Esto refuerza la conclusión de que las condiciones de miedo o avaricia en el mercado cripto no tienen un efecto inmediato sobre la variación diaria del sol peruano.
 
-En conclusión, el comportamiento del dólar en Perú responde principalmente a su propia inercia y a la intervención estabilizadora local, permaneciendo aislado de la euforia o pánico de los mercados de activos digitales.
+- **Métrica de Error:**  
+  El modelo alcanzó un **Error Cuadrático Medio (MSE)** de **0.092062** en el conjunto de prueba, superando el desempeño de modelos lineales simples previos.
+
