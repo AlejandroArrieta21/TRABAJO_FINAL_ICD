@@ -72,6 +72,8 @@ El análisis descriptivo permite identificar patrones de estabilidad, episodios 
 
 ## 4. Modelo Autoregresivo con Variable Exógena (ARX)
 
+Previo a la selección final, se evaluaron múltiples especificaciones, incluyendo modelos multivariados con mayor número de controles macroeconómicos y distintas estructuras temporales. Sin embargo, tras comparar la capacidad predictiva fuera de la muestra, el presente modelo demostró el mejor desempeño, superando a las versiones más complejas (que presentaron problemas de sobreajuste) y a las más simples. Por tanto, se seleccionó esta especificación por su robustez y minimización del error.
+
 Se implementó un modelo dinámico para evaluar si el retorno del tipo de cambio (\(ret\_USD\)) puede ser explicado por su propia inercia y por el sentimiento global (FGI) como shock externo.
 
 ### Especificación del Modelo
