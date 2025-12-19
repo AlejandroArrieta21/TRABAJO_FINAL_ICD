@@ -241,7 +241,7 @@ Se implementó un Perceptrón Multicapa (MLPRegressor) con una estrategia de opt
 
 ## Arquitectura y Configuración del Modelo
 
-A diferencia de las pruebas iniciales, se utilizó una validación cruzada temporal para encontrar la arquitectura óptima1. Los mejores hiperparámetros encontrados fueron2:
+A diferencia de las pruebas iniciales, se utilizó una validación cruzada temporal para encontrar la arquitectura óptima1. Los mejores hiperparámetros encontrados fueron:
 
 - **Estructura de Capas:** Tres capas ocultas densas de (128, 64, 32) neuronas.
 - **Función de Activación:** Logistic (Sigmoide), lo que sugiere una mejor adaptación a la naturaleza acotada de los retornos que la función ReLU.
@@ -262,7 +262,7 @@ La optimización mejoró drásticamente el desempeño del modelo. A diferencia d
 ## Interpretación del Análisis MLP
 
 **Convergencia de Modelos:**  
-El hallazgo más revelador es que una red neuronal profunda compleja (MLP) converge prácticamente al mismo error cuadrático medio (MSE ~0.0747) que una regresión lineal penalizada (Ridge, MSE ~0.0742)444.
+El hallazgo más revelador es que una red neuronal profunda compleja (MLP) converge prácticamente al mismo error cuadrático medio (MSE ~0.0747) que una regresión lineal penalizada (Ridge, MSE ~0.0742).
 
 **Ausencia de No-Linealidad Explotable:**  
 El hecho de que la complejidad adicional de la red neuronal no se traduzca en una mejora predictiva sugiere que la serie de retornos del USD/PEN no contiene patrones no lineales ocultos significativos5.
@@ -275,13 +275,13 @@ Los resultados refuerzan la hipótesis de que la dinámica del tipo de cambio es
 El desarrollo de este análisis, que integra modelos estáticos, dinámicos (ARX) y de machine learning avanzado, permite establecer conclusiones robustas sobre la dinámica del mercado cambiario peruano frente al ecosistema cripto:
 
 **Insignificancia del Sentimiento Cripto:**  
-El Fear & Greed Index (FGI) no presenta un efecto estadísticamente significativo sobre los retornos diarios del USD/PEN, ni en modelos lineales ni en redes neuronales. El sentimiento global del mercado digital no se transmite al mercado cambiario peruano en el corto plazo7.
+El Fear & Greed Index (FGI) no presenta un efecto estadísticamente significativo sobre los retornos diarios del USD/PEN, ni en modelos lineales ni en redes neuronales. El sentimiento global del mercado digital no se transmite al mercado cambiario peruano en el corto plazo.
 
 **Dominancia de la Inercia (Memoria):**  
 El tipo de cambio peruano exhibe una fuerte persistencia autorregresiva. El predictor más potente en todos los modelos fue consistentemente el retorno rezagado del propio tipo de cambio (ret_USD_lag1), confirmando que el sol se mueve principalmente por su propia dinámica histórica e intervenciones de suavización8888.
 
 **Equivalencia Predictiva (La "Pared" del Ruido):**  
-Todos los modelos evaluados (Ridge, XGBoost y MLP) convergieron a un desempeño predictivo casi idéntico (MSE ≈ 0.075)9. Esto indica que el error restante corresponde a ruido de mercado irreductible y shocks estocásticos, y no a una falta de capacidad del modelo10.
+Todos los modelos evaluados (Ridge, XGBoost y MLP) convergieron a un desempeño predictivo casi idéntico (MSE ≈ 0.075). Esto indica que el error restante corresponde a ruido de mercado irreductible y shocks estocásticos, y no a una falta de capacidad del modelo.
 
 **Rol del Bitcoin:**  
 Aunque existe una correlación contemporánea positiva y moderada, el Bitcoin tiene un aporte marginal en la predicción futura. Actúa más como un termómetro de liquidez global coincidente que como un predictor adelantado de la moneda peruana11.
@@ -291,16 +291,16 @@ Aunque existe una correlación contemporánea positiva y moderada, el Bitcoin ti
 Los hallazgos empíricos de esta investigación se alinean con la literatura financiera sobre mercados emergentes y la teoría de eficiencia de mercados.
 
 **Sentimiento y Fundamentos**  
-La nula capacidad predictiva del FGI sobre el sol peruano respalda la tesis de Baker y Wurgler (2007)12121212, quienes postulan que el sentimiento del inversor afecta desproporcionadamente a activos especulativos y difíciles de valorar (como criptomonedas), pero tiene poco efecto sobre activos con fundamentos sólidos y anclajes institucionales claros, como el USD/PEN.
+La nula capacidad predictiva del FGI sobre el sol peruano respalda la tesis de Baker y Wurgler (2007), quienes postulan que el sentimiento del inversor afecta desproporcionadamente a activos especulativos y difíciles de valorar (como criptomonedas), pero tiene poco efecto sobre activos con fundamentos sólidos y anclajes institucionales claros, como el USD/PEN.
 
 **Transmisión de Riesgo Global**  
-La relación observada con el Bitcoin y el VIX es consistente con Baur et al. (2018) y Corbet et al. (2019)13131313. Las criptomonedas responden a ciclos globales de apetito por riesgo. El hecho de que estas variables expliquen parcialmente los "shocks" (residuos) del tipo de cambio, pero no su tendencia central, sugiere que el sol peruano recibe estos impactos como eventos transitorios de volatilidad externa, no como determinantes de tendencia.
+La relación observada con el Bitcoin y el VIX es consistente con Baur et al. (2018) y Corbet et al. (2019). Las criptomonedas responden a ciclos globales de apetito por riesgo. El hecho de que estas variables expliquen parcialmente los "shocks" (residuos) del tipo de cambio, pero no su tendencia central, sugiere que el sol peruano recibe estos impactos como eventos transitorios de volatilidad externa, no como determinantes de tendencia.
 
 **Implicancias de la Convergencia Lineal**  
-Desde el punto de vista econométrico, que el MLP (Deep Learning) no supere al Ridge (Lineal) es un resultado consistente con Gu, Kelly & Xiu (2020)14. En finanzas, cuando la relación señal-ruido es baja (mucho ruido, poca predictibilidad), los modelos complejos tienden a no aportar valor sobre los lineales. Esto confirma que el mercado cambiario peruano es altamente eficiente en su microestructura: la información disponible ya está incorporada en el precio (inercia), y no hay "arbitraje" complejo que una IA pueda explotar fácilmente.
+Desde el punto de vista econométrico, que el MLP (Deep Learning) no supere al Ridge (Lineal) es un resultado consistente con Gu, Kelly & Xiu (2020). En finanzas, cuando la relación señal-ruido es baja (mucho ruido, poca predictibilidad), los modelos complejos tienden a no aportar valor sobre los lineales. Esto confirma que el mercado cambiario peruano es altamente eficiente en su microestructura: la información disponible ya está incorporada en el precio (inercia), y no hay "arbitraje" complejo que una IA pueda explotar fácilmente.
 
 **Rol del BCRP**  
-Finalmente, la fuerte inercia detectada valida la efectividad de la política de intervención esterilizada del Banco Central de Reserva del Perú (BCRP)15151515. La autoridad monetaria logra que el tipo de cambio tenga una trayectoria suave (dependiente de su pasado), aislando a la moneda local de la euforia o pánico excesivo que caracteriza a los mercados digitales globales.
+Finalmente, la fuerte inercia detectada valida la efectividad de la política de intervención esterilizada del Banco Central de Reserva del Perú (BCRP). La autoridad monetaria logra que el tipo de cambio tenga una trayectoria suave (dependiente de su pasado), aislando a la moneda local de la euforia o pánico excesivo que caracteriza a los mercados digitales globales.
 
 # 10. Referencias Bibliográficas
 
