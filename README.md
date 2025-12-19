@@ -264,7 +264,7 @@ La optimización mejoró drásticamente el desempeño del modelo. A diferencia d
 **Convergencia de Modelos:**  
 El hallazgo más revelador es que una red neuronal profunda compleja (MLP) converge prácticamente al mismo error cuadrático medio (MSE ~0.0747) que una regresión lineal penalizada (Ridge, MSE ~0.0742).
 
-**Ausencia de No-Linealidad Explotable:**  
+**Ausencia de No Linealidad Explotable:**  
 El hecho de que la complejidad adicional de la red neuronal no se traduzca en una mejora predictiva sugiere que la serie de retornos del USD/PEN no contiene patrones no lineales ocultos significativos.
 
 **Eficiencia del Mercado:**  
