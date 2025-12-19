@@ -235,86 +235,99 @@ Por otro lado, factores domésticos como la política monetaria local y los fluj
 
 ---
 
-## 7. Modelo de Redes Neuronales (MLP)
+# 7. Modelo de Redes Neuronales (MLP) - Optimizado
 
-Se implementó un **Perceptrón Multicapa (MLPRegressor)** para evaluar si una arquitectura de aprendizaje profundo podría superar la capacidad predictiva de los modelos tradicionales al capturar relaciones no lineales altamente complejas.
+Se implementó un Perceptrón Multicapa (MLPRegressor) con una estrategia de optimización de hiperparámetros (GridSearchCV) para evaluar si una arquitectura de aprendizaje profundo podía capturar relaciones no lineales complejas que los modelos estadísticos tradicionales no detectan.
 
-### Arquitectura y Configuración del Modelo
+## Arquitectura y Configuración del Modelo
 
-- **Estructura:**  
-  Dos capas ocultas de **64** y **32** neuronas respectivamente.
+A diferencia de las pruebas iniciales, se utilizó una validación cruzada temporal para encontrar la arquitectura óptima1. Los mejores hiperparámetros encontrados fueron2:
 
-- **Funciones y Optimización:**  
-  Función de activación **ReLU** y optimizador **Adam**.
+- **Estructura de Capas:** Tres capas ocultas densas de (128, 64, 32) neuronas.
+- **Función de Activación:** Logistic (Sigmoide), lo que sugiere una mejor adaptación a la naturaleza acotada de los retornos que la función ReLU.
+- **Regularización:** Alpha de 0.001 (penalización L2).
+- **Optimizador:** Adam con una tasa de aprendizaje inicial de 0.001.
 
-- **Prevención de Sobreajuste:**  
-  Esquema de *early stopping* con una paciencia de **50 iteraciones** para detener el entrenamiento ante la ausencia de mejoras en validación.
+## Desempeño y Comparativa
 
-### Desempeño y Comparativa
+La optimización mejoró drásticamente el desempeño del modelo. A diferencia de las iteraciones previas donde el modelo no generalizaba, el MLP optimizado alcanzó niveles de error competitivos frente a los modelos de ensamble y lineales33:
 
-Los resultados obtenidos por la red neuronal fueron inferiores a los modelos de ensamble y regresión lineal penalizada:
+| Modelo         | MSE (Test) | Interpretación del Desempeño                         |
+|---------------|------------|-----------------------------------------------------|
+| XGBoost       | 0.074090   | Mejor desempeño (por margen mínimo).                |
+| Ridge (Lineal)| 0.074256   | Alta competitividad pese a su simplicidad.          |
+| MLP (Optimizado) | 0.074719 | Convergencia exitosa al nivel de los otros modelos. |
+| Random Forest | 0.076369   | Desempeño ligeramente inferior.                     |
 
-| Métrica | MLP Regressor | Ridge / XGBoost (Promedio) |
-|------|-------------|-----------------------------|
-| Error Cuadrático Medio (MSE) | 0.279298 | ~0.074 |
-| Coeficiente de Determinación (R^2) | -2.73 | 0.0310  |
+## Interpretación del Análisis MLP
 
-### Puntos más importantes del análisis del MLP
+**Convergencia de Modelos:**  
+El hallazgo más revelador es que una red neuronal profunda compleja (MLP) converge prácticamente al mismo error cuadrático medio (MSE ~0.0747) que una regresión lineal penalizada (Ridge, MSE ~0.0742)444.
 
-- **Falta de Generalización:**  
-  El \(R^2\) negativo indica que la predicción del MLP es menos precisa que utilizar el promedio simple como estimador, evidenciando sobreajuste o incapacidad para extraer señales útiles del ruido financiero.
+**Ausencia de No-Linealidad Explotable:**  
+El hecho de que la complejidad adicional de la red neuronal no se traduzca en una mejora predictiva sugiere que la serie de retornos del USD/PEN no contiene patrones no lineales ocultos significativos5.
 
-- **Requerimientos de Datos:**  
-  Las redes neuronales requieren un volumen de datos significativamente mayor y una estructura temporal más explícita (por ejemplo, redes recurrentes o Transformers) para capturar dinámicas financieras que los modelos de ensamble como XGBoost manejan mejor con muestras moderadas.
+**Eficiencia del Mercado:**  
+Los resultados refuerzan la hipótesis de que la dinámica del tipo de cambio está dominada por el ruido de alta frecuencia y la inercia lineal, haciendo que los modelos sofisticados "colapsen" hacia soluciones lineales6.
 
-- **Superioridad de Modelos Tradicionales:**  
-  La estabilidad de los modelos **Ridge** y **XGBoost** sugiere que la estructura del problema, retornos con inercia y señales altamente ruidosas, se ajusta mejor a modelos que penalizan la complejidad o utilizan árboles de decisión.
+# 8. Conclusiones Generales
 
-En conclusión, aunque el MLP permite modelar interacciones teóricas muy complejas, en el contexto del tipo de cambio peruano los modelos tradicionales resultan ser más precisos y confiables para la toma de decisiones económicas.
+El desarrollo de este análisis, que integra modelos estáticos, dinámicos (ARX) y de machine learning avanzado, permite establecer conclusiones robustas sobre la dinámica del mercado cambiario peruano frente al ecosistema cripto:
 
-## 8. Conclusiones Generales
+**Insignificancia del Sentimiento Cripto:**  
+El Fear & Greed Index (FGI) no presenta un efecto estadísticamente significativo sobre los retornos diarios del USD/PEN, ni en modelos lineales ni en redes neuronales. El sentimiento global del mercado digital no se transmite al mercado cambiario peruano en el corto plazo7.
 
-El desarrollo de este análisis, que integra modelos estáticos, dinámicos y de *machine learning*, permite establecer conclusiones robustas sobre la dinámica del mercado cambiario peruano en relación con el ecosistema de activos digitales:
+**Dominancia de la Inercia (Memoria):**  
+El tipo de cambio peruano exhibe una fuerte persistencia autorregresiva. El predictor más potente en todos los modelos fue consistentemente el retorno rezagado del propio tipo de cambio (ret_USD_lag1), confirmando que el sol se mueve principalmente por su propia dinámica histórica e intervenciones de suavización8888.
 
-- **Insignificancia del Sentimiento Cripto:**  
-  El *Fear & Greed Index (FGI)* no presenta un efecto estadísticamente significativo sobre los retornos del USD/PEN, incluso tras la aplicación de modelos no lineales y el control de variables macroeconómicas.
+**Equivalencia Predictiva (La "Pared" del Ruido):**  
+Todos los modelos evaluados (Ridge, XGBoost y MLP) convergieron a un desempeño predictivo casi idéntico (MSE ≈ 0.075)9. Esto indica que el error restante corresponde a ruido de mercado irreductible y shocks estocásticos, y no a una falta de capacidad del modelo10.
 
-- **Dominancia de la Inercia Temporal:**  
-  El tipo de cambio peruano exhibe una fuerte persistencia, confirmada por la alta significancia del término autorregresivo en el modelo ARX. Esto implica que el comportamiento del sol está más influenciado por su propia dinámica histórica inmediata que por factores externos especulativos.
+**Rol del Bitcoin:**  
+Aunque existe una correlación contemporánea positiva y moderada, el Bitcoin tiene un aporte marginal en la predicción futura. Actúa más como un termómetro de liquidez global coincidente que como un predictor adelantado de la moneda peruana11.
 
-- **Contribución Marginal del Bitcoin:**  
-  Aunque existe una relación contemporánea entre el Bitcoin y el USD/PEN, su capacidad predictiva es marginal una vez que se controla la dinámica interna del mercado cambiario.
+# 9. Discusión Económica
 
-- **Desempeño de Modelos:**  
-  Los algoritmos basados en ensambles de árboles, específicamente **XGBoost** y **Random Forest**, ofrecieron los menores niveles de error (MSE). Por el contrario, el modelo de **Redes Neuronales (MLP)** no logró generalizar adecuadamente debido a la limitación en el tamaño del dataset y la alta complejidad del ruido financiero.
+Los hallazgos empíricos de esta investigación se alinean con la literatura financiera sobre mercados emergentes y la teoría de eficiencia de mercados.
 
-- **Determinantes Estructurales:**  
-  La evolución de la moneda peruana responde primordialmente a shocks globales amplios y factores macroeconómicos estructurales, manteniendo una desconexión con los indicadores de sentimiento específicos del criptomercado.
+**Sentimiento y Fundamentos**  
+La nula capacidad predictiva del FGI sobre el sol peruano respalda la tesis de Baker y Wurgler (2007)12121212, quienes postulan que el sentimiento del inversor afecta desproporcionadamente a activos especulativos y difíciles de valorar (como criptomonedas), pero tiene poco efecto sobre activos con fundamentos sólidos y anclajes institucionales claros, como el USD/PEN.
 
----
+**Transmisión de Riesgo Global**  
+La relación observada con el Bitcoin y el VIX es consistente con Baur et al. (2018) y Corbet et al. (2019)13131313. Las criptomonedas responden a ciclos globales de apetito por riesgo. El hecho de que estas variables expliquen parcialmente los "shocks" (residuos) del tipo de cambio, pero no su tendencia central, sugiere que el sol peruano recibe estos impactos como eventos transitorios de volatilidad externa, no como determinantes de tendencia.
 
-## 9. Discusión Económica
+**Implicancias de la Convergencia Lineal**  
+Desde el punto de vista econométrico, que el MLP (Deep Learning) no supere al Ridge (Lineal) es un resultado consistente con Gu, Kelly & Xiu (2020)14. En finanzas, cuando la relación señal-ruido es baja (mucho ruido, poca predictibilidad), los modelos complejos tienden a no aportar valor sobre los lineales. Esto confirma que el mercado cambiario peruano es altamente eficiente en su microestructura: la información disponible ya está incorporada en el precio (inercia), y no hay "arbitraje" complejo que una IA pueda explotar fácilmente.
 
-Los hallazgos de esta investigación son consistentes con la literatura empírica sobre mercados emergentes y la microestructura del mercado cambiario peruano.
+**Rol del BCRP**  
+Finalmente, la fuerte inercia detectada valida la efectividad de la política de intervención esterilizada del Banco Central de Reserva del Perú (BCRP)15151515. La autoridad monetaria logra que el tipo de cambio tenga una trayectoria suave (dependiente de su pasado), aislando a la moneda local de la euforia o pánico excesivo que caracteriza a los mercados digitales globales.
 
-### Relación entre Sentimiento y Activos
+# 10. Referencias Bibliográficas
 
-La ausencia de impacto del FGI sobre el USD/PEN valida la tesis de **Baker y Wurgler (2007)**, quienes sostienen que el sentimiento de los inversionistas tiene una influencia determinante en activos con alta incertidumbre fundamental y carácter especulativo. El mercado cambiario peruano, caracterizado por fundamentos sólidos, no encaja en esta descripción.
+## Sentimiento y mercados financieros
 
-### Naturaleza del Bitcoin
+Baker, M., & Wurgler, J. (2007). Investor sentiment in the stock market. *Journal of Economic Perspectives*, 21(2), 129–151.
 
-La limitada capacidad predictiva del Bitcoin sobre el sol peruano coincide con los estudios de **Baur et al. (2018)** y **Corbet et al. (2019)**. Estos autores destacan que las criptomonedas responden a shocks globales de liquidez y apetito por riesgo, pero no mantienen vínculos causales directos con los mercados cambiarios tradicionales.
+García, D. (2013). Sentiment during recessions. *Journal of Finance*, 68(3), 1267–1300.
 
-### El Rol de la Política Monetaria
+## Bitcoin, riesgo global y mercados financieros
 
-La fuerte persistencia observada en los retornos del USD/PEN es coherente con los reportes del **Banco Central de Reserva del Perú (BCRP)**. La estabilidad de la moneda peruana se explica por:
+Baur, D. G., Hong, K., & Lee, A. D. (2018). Bitcoin: medium of exchange or speculative assets? *Journal of International Financial Markets, Institutions & Money*, 54, 177–189.
 
-- Mecanismos de intervención esterilizada del BCRP que suavizan la volatilidad.  
-- Una microestructura de mercado que prioriza la previsibilidad y reduce los movimientos erráticos.  
-- Un régimen de metas explícitas de inflación que ancla las expectativas de los agentes económicos.
+Corbet, S., Lucey, B., & Yarovaya, L. (2019). The financial market effects of cryptocurrency energy prices. *Energy Economics*, 84, 104502.
 
-### Machine Learning en Series Financieras
+## Tipo de cambio y macroeconomía peruana
 
-El hecho de que modelos sofisticados como **XGBoost** no superen de manera sustancial a modelos lineales como **Ridge** confirma que, en mercados con fuerte presencia institucional, la mayor parte de la variación diaria es ruido y no información aprovechable. Los modelos complejos capturan interacciones interesantes, pero no logran vencer la eficiencia del mercado cuando la señal fundamental es débil.
+Banco Central de Reserva del Perú (BCRP). (2023). *Reporte de Inflación*. Lima, Perú.
 
-En conjunto, los resultados refuerzan la idea de que el **USD/PEN** es un activo de baja volatilidad y alta resiliencia institucional, cuya transmisión frente al sentimiento global especulativo es significativamente más débil que en otros activos financieros de la región.
+Rossini, A. (2010). Intervenciones cambiarias y mecanismos de transmisión en economías emergentes. Banco Central de Reserva del Perú.
+
+## Series de tiempo y modelos ARX
+
+Hamilton, J. D. (1994). *Time Series Analysis*. Princeton University Press.
+
+Stock, J. H., & Watson, M. W. (2016). *Introduction to Econometrics*. Pearson.
+
+## Machine Learning y eficiencia de mercados financieros
+
+Gu, S., Kelly, B., & Xiu, D. (2020). Empirical asset pricing via machine learning. *Review of Financial Studies*, 33(5), 2223–2273.
