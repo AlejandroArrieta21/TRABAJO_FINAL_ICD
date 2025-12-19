@@ -250,7 +250,7 @@ A diferencia de las pruebas iniciales, se utilizó una validación cruzada tempo
 
 ## Desempeño y Comparativa
 
-La optimización mejoró drásticamente el desempeño del modelo. A diferencia de las iteraciones previas donde el modelo no generalizaba, el MLP optimizado alcanzó niveles de error competitivos frente a los modelos de ensamble y lineales33:
+La optimización mejoró drásticamente el desempeño del modelo. A diferencia de las iteraciones previas donde el modelo no generalizaba, el MLP optimizado alcanzó niveles de error competitivos frente a los modelos de ensamble y lineales:
 
 | Modelo         | MSE (Test) | Interpretación del Desempeño                         |
 |---------------|------------|-----------------------------------------------------|
@@ -265,10 +265,10 @@ La optimización mejoró drásticamente el desempeño del modelo. A diferencia d
 El hallazgo más revelador es que una red neuronal profunda compleja (MLP) converge prácticamente al mismo error cuadrático medio (MSE ~0.0747) que una regresión lineal penalizada (Ridge, MSE ~0.0742).
 
 **Ausencia de No-Linealidad Explotable:**  
-El hecho de que la complejidad adicional de la red neuronal no se traduzca en una mejora predictiva sugiere que la serie de retornos del USD/PEN no contiene patrones no lineales ocultos significativos5.
+El hecho de que la complejidad adicional de la red neuronal no se traduzca en una mejora predictiva sugiere que la serie de retornos del USD/PEN no contiene patrones no lineales ocultos significativos.
 
 **Eficiencia del Mercado:**  
-Los resultados refuerzan la hipótesis de que la dinámica del tipo de cambio está dominada por el ruido de alta frecuencia y la inercia lineal, haciendo que los modelos sofisticados "colapsen" hacia soluciones lineales6.
+Los resultados refuerzan la hipótesis de que la dinámica del tipo de cambio está dominada por el ruido de alta frecuencia y la inercia lineal, haciendo que los modelos sofisticados "colapsen" hacia soluciones lineales.
 
 # 8. Conclusiones Generales
 
@@ -278,13 +278,13 @@ El desarrollo de este análisis, que integra modelos estáticos, dinámicos (ARX
 El Fear & Greed Index (FGI) no presenta un efecto estadísticamente significativo sobre los retornos diarios del USD/PEN, ni en modelos lineales ni en redes neuronales. El sentimiento global del mercado digital no se transmite al mercado cambiario peruano en el corto plazo.
 
 **Dominancia de la Inercia (Memoria):**  
-El tipo de cambio peruano exhibe una fuerte persistencia autorregresiva. El predictor más potente en todos los modelos fue consistentemente el retorno rezagado del propio tipo de cambio (ret_USD_lag1), confirmando que el sol se mueve principalmente por su propia dinámica histórica e intervenciones de suavización8888.
+El tipo de cambio peruano exhibe una fuerte persistencia autorregresiva. El predictor más potente en todos los modelos fue consistentemente el retorno rezagado del propio tipo de cambio (ret_USD_lag1), confirmando que el sol se mueve principalmente por su propia dinámica histórica e intervenciones de suavización.
 
 **Equivalencia Predictiva (La "Pared" del Ruido):**  
 Todos los modelos evaluados (Ridge, XGBoost y MLP) convergieron a un desempeño predictivo casi idéntico (MSE ≈ 0.075). Esto indica que el error restante corresponde a ruido de mercado irreductible y shocks estocásticos, y no a una falta de capacidad del modelo.
 
 **Rol del Bitcoin:**  
-Aunque existe una correlación contemporánea positiva y moderada, el Bitcoin tiene un aporte marginal en la predicción futura. Actúa más como un termómetro de liquidez global coincidente que como un predictor adelantado de la moneda peruana11.
+Aunque existe una correlación contemporánea positiva y moderada, el Bitcoin tiene un aporte marginal en la predicción futura. Actúa más como un termómetro de liquidez global coincidente que como un predictor adelantado de la moneda peruana.
 
 # 9. Discusión Económica
 
